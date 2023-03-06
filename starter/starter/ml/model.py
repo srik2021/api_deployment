@@ -1,10 +1,15 @@
 from sklearn.metrics import fbeta_score, precision_score, recall_score
+from sklearn.model_selection import train_test_split
+import xgboost as xgb
+import pandas as pd
+
+from ml.data import process_data
 
 
 # Optional: implement hyperparameter tuning.
 def train_model(X_train, y_train):
     """
-    Trains a machine learning model and returns it.
+    Trains an XGBoost machine learning model and returns it.
 
     Inputs
     ------
@@ -17,8 +22,17 @@ def train_model(X_train, y_train):
     model
         Trained machine learning model.
     """
-
-    pass
+    
+    dtrain = xgb.DMatrix(X_train, label=y_train)
+    param = {
+        "max_depth": 5,
+        "eta": 0.1,
+        "objective": "binary:logistic",
+        "eval_metric": "auc"
+    }
+    num_round = 100
+    model = xgb.train(param, dtrain, num_round)
+    return model
 
 
 def compute_model_metrics(y, preds):
@@ -48,13 +62,58 @@ def inference(model, X):
 
     Inputs
     ------
-    model : ???
+    model : xgboost model
         Trained machine learning model.
     X : np.array
         Data used for prediction.
     Returns
     -------
     preds : np.array
-        Predictions from the model.
+        Predictions from the model as boolean values.
     """
-    pass
+
+    dtest = xgb.DMatrix(X)
+    preds = model.predict(dtest)
+    preds = [round(value) for value in preds]
+    return preds
+
+
+def transform_data(data):
+    """
+    Transforms the data into a format that can be used by the model.
+    Args:
+        data (str): Path to the file containing the data.
+
+    Returns:
+        X_train (np.array): Training data.
+        y_train (np.array): Training labels.
+        X_test (np.array): Test data.
+        y_test (np.array): Test labels.
+    """  
+        
+    # Optional enhancement, use K-fold cross validation instead of a train-test split.  
+    train, test = train_test_split(data, test_size=0.20, random_state=31, stratify=data["salary"])
+
+    cat_features = [
+        "workclass",
+        "education",
+        "marital-status",
+        "occupation",
+        "relationship",
+        "race",
+        "sex",
+        "native-country",
+    ]
+
+    X_train, y_train, encoder, lb = process_data(
+        train, categorical_features=cat_features, label="salary", training=True
+    )       
+
+    # Proces the test data with the process_data function.
+    X_test, y_test, _, _ = process_data(
+        test, categorical_features=cat_features, label="salary", training=False,
+        encoder=encoder, lb=lb
+    )
+    
+    return X_train, y_train, X_test, y_test
+

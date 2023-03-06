@@ -1,5 +1,7 @@
 import numpy as np
+import pandas as pd
 from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
+
 
 
 def process_data(
@@ -68,3 +70,33 @@ def process_data(
 
     X = np.concatenate([X_continuous, X_categorical], axis=1)
     return X, y, encoder, lb
+
+
+def read_and_clean_data(path):
+    """ 
+    Read and process the data.
+
+    Inputs
+    ------
+    path : str
+        Path to the data.
+
+    Returns
+    -------
+    data : pd.DataFrame
+        Processed data.
+    """
+    
+    df = pd.read_csv(path)
+    df = df.replace("?", np.nan)
+
+    # Remove duplicates from the DataFrame
+    df = df.drop_duplicates()
+
+    # Filter data to only include 'United-States' in the native-country column
+    df = df[df['native-country'] == 'United-States']
+
+    # Filter age to be between 19 and 69
+    df = df[(df['age'] >= 19) & (df['age'] <= 69)]
+
+    return df
