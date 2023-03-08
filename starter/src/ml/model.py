@@ -1,10 +1,24 @@
 from sklearn.metrics import fbeta_score, precision_score, recall_score
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import OneHotEncoder
 import xgboost as xgb
 import pandas as pd
 
-from ml.data import process_data
+from src.ml.data import process_data
+from src.ml.data import transform_prediction_attributes
 
+cat_features = [
+        "workclass",
+        "education",
+        "marital-status",
+        "occupation",
+        "relationship",
+        "race",
+        "sex",
+        "native-country",
+    ]
+
+encoder = OneHotEncoder()   
 
 # Optional: implement hyperparameter tuning.
 def train_model(X_train, y_train):
@@ -56,6 +70,16 @@ def compute_model_metrics(y, preds):
     recall = recall_score(y, preds, zero_division=1)
     return precision, recall, fbeta
 
+def create_prediction_attributes(df):   
+    """
+    Creates a dataframe with the attributes that will be used for prediction.
+    Args:
+        df (str): dataframe with raw attributes that will be used for prediction.
+    Returns:
+        df (pd.DataFrame): Dataframe with transformed attributes.
+    """
+    return transform_prediction_attributes(df, encoder=encoder, categorical_features=cat_features)
+    
 
 def inference(model, X):
     """ Run model inferences and return the predictions.
@@ -94,17 +118,7 @@ def transform_data(data):
     # Optional enhancement, use K-fold cross validation instead of a train-test split.  
     train, test = train_test_split(data, test_size=0.20, random_state=31, stratify=data["salary"])
 
-    cat_features = [
-        "workclass",
-        "education",
-        "marital-status",
-        "occupation",
-        "relationship",
-        "race",
-        "sex",
-        "native-country",
-    ]
-
+    # Process the training data with the process_data function.
     X_train, y_train, encoder, lb = process_data(
         train, categorical_features=cat_features, label="salary", training=True
     )       

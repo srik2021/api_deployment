@@ -3,18 +3,16 @@ import pytest
 from sklearn.metrics import accuracy_score
 import xgboost as xgb
 import sys
-
-sys.path.append("starter/starter")
-from ml.model import inference, train_model, compute_model_metrics
-from ml.model_test_helper import load_metrics_from_file
-from train_model import transform_data
-from ml.data import read_and_clean_data
+      
+from src.ml.model import inference, train_model, compute_model_metrics
+from src.ml.model_test_helper import load_metrics_from_file
+from src.train_model import transform_data
+from src.ml.data import read_and_clean_data
 
 
 # create fixture to load model
 @pytest.fixture
 def model():
-    
     print("\n".join(sys.path))
     # load model from file
     model = xgb.Booster()

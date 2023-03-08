@@ -7,14 +7,14 @@ from sklearn.model_selection import train_test_split
 import xgboost as xgb
 import pandas as pd
 
-from ml.data import process_data
-from ml.data import read_and_clean_data
-from ml.model import train_model
-from ml.model import compute_model_metrics
-from ml.model import inference
-from ml.model import transform_data
-from ml.model_test_helper import save_metrics_to_file
-from ml.model_test_helper import save_sample_input_and_predictions_to_file
+from src.ml.data import process_data
+from src.ml.data import read_and_clean_data
+from src.ml.model import train_model
+from src.ml.model import compute_model_metrics
+from src.ml.model import inference
+from src.ml.model import transform_data
+from src.ml.model_test_helper import save_metrics_to_file
+from src.ml.model_test_helper import save_sample_input_and_predictions_to_file
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)   # set the logging level

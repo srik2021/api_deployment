@@ -71,6 +71,25 @@ def process_data(
     X = np.concatenate([X_continuous, X_categorical], axis=1)
     return X, y, encoder, lb
 
+def transform_prediction_attributes(X, encoder, categorical_features):
+    """
+    Transform the prediction attributes.
+
+    Args:
+        X (pd.Dataframe): data of input attributes to be transformed
+        encoder (_type_): encoding to perform on th categorical features.  
+        Should be the same as was used in training.
+        categorical_features (list): list of categorical features to be encoded.
+
+    Returns:
+        NDArray : concatenated array of continuous and encoded categorical features.
+    """    
+    X_categorical = X[categorical_features].values
+    X_continuous = X.drop(*[categorical_features], axis=1)
+    
+    X_categorical = encoder.transform(X_categorical)
+    return np.concatenate([X_continuous, X_categorical], axis=1)
+
 
 def read_and_clean_data(path):
     """ 
