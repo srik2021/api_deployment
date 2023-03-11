@@ -1,7 +1,11 @@
-scikit-learn
-pandas
+python==3.8
 numpy
-fastapi
+pandas
+scikit-learn
+pytest
+requests
+fastapi==0.63.0
 uvicorn
+gunicorn
 xgboost
 httpx
