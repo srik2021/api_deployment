@@ -84,6 +84,7 @@ def transform_prediction_attributes(X, encoder, categorical_features):
     Returns:
         NDArray : concatenated array of continuous and encoded categorical features.
     """    
+    
     X_categorical = X[categorical_features].values
     X_continuous = X.drop(*[categorical_features], axis=1)
     

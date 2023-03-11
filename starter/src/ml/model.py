@@ -4,8 +4,8 @@ from sklearn.preprocessing import OneHotEncoder
 import xgboost as xgb
 import pandas as pd
 
-from src.ml.data import process_data
-from src.ml.data import transform_prediction_attributes
+from ml.data import process_data
+from ml.data import transform_prediction_attributes
 
 cat_features = [
         "workclass",
@@ -15,7 +15,7 @@ cat_features = [
         "relationship",
         "race",
         "sex",
-        "native-country",
+        "native-country"
     ]
 
 encoder = OneHotEncoder()   
@@ -70,7 +70,7 @@ def compute_model_metrics(y, preds):
     recall = recall_score(y, preds, zero_division=1)
     return precision, recall, fbeta
 
-def create_prediction_attributes(df):   
+def create_prediction_attributes(encoder, df):   
     """
     Creates a dataframe with the attributes that will be used for prediction.
     Args:
@@ -129,5 +129,7 @@ def transform_data(data):
         encoder=encoder, lb=lb
     )
     
-    return X_train, y_train, X_test, y_test
-
+    # exclude salary column from test
+    X_test_raw = test.drop(columns=['salary'])
+    
+    return X_train, y_train, X_test, y_test, X_test_raw, encoder

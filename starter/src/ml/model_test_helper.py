@@ -24,12 +24,12 @@ def load_metrics_from_file():
     """
     Loads the model metrics from a file.
     """
-    with open("starter/tests/metrics.json", "r") as f:
+    with open("starter/data/metrics.json", "r") as f:
         metrics = json.load(f)
     return metrics
 
 
-def save_sample_input_and_predictions_to_file(X_test, predictions):
+def save_sample_input_and_predictions_to_file(X_test_raw, X_test, predictions):
     """
     Saves the sample input and predictions to a file.
     
@@ -45,11 +45,16 @@ def save_sample_input_and_predictions_to_file(X_test, predictions):
     df = pd.DataFrame(X_test)
     df["predictions"] = predictions
     
+    df_raw = pd.DataFrame(X_test_raw)
+    df_raw["predictions"] = predictions
+    
     # sample data from X_test and predictions
     sample_df = df.sample(n=10, random_state=31)
+    sampl_df_raw = df_raw.sample(n=10, random_state=31)
     
     # save sample input and predictions to file as csv
-    sample_df.to_csv("starter/tests/sample_input_and_predictions.csv", index=False)
+    sample_df.to_csv("starter/data/sample_input_and_predictions.csv", index=False)
+    sampl_df_raw.to_csv("starter/data/sample_raw_input_and_predictions.csv", index=False)
     
         
 

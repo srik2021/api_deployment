@@ -1,0 +1,11 @@
+age,workclass,fnlgt,education,education_num,marital_status,occupation,relationship,race,sex,capital_gain,capital_loss,hours_per_week,native_country,predictions
+26,Private,132661,HS-grad,9,Married-civ-spouse,Exec-managerial,Wife,White,Female,5013,0,40,United-States,0
+25,Private,256263,Assoc-acdm,12,Married-civ-spouse,Sales,Husband,White,Male,0,0,40,United-States,0
+56,Private,145574,HS-grad,9,Married-civ-spouse,Craft-repair,Husband,White,Male,0,0,40,United-States,0
+19,,318264,Some-college,10,Never-married,,Own-child,White,Male,0,0,30,United-States,0
+22,Private,167787,HS-grad,9,Never-married,Other-service,Not-in-family,White,Female,0,0,40,United-States,0
+35,Private,54159,HS-grad,9,Married-civ-spouse,Craft-repair,Husband,White,Male,0,0,38,United-States,0
+22,Private,418405,Some-college,10,Married-civ-spouse,Craft-repair,Husband,White,Male,0,0,40,United-States,0
+37,Private,167735,Assoc-voc,11,Married-civ-spouse,Craft-repair,Husband,White,Male,0,1887,40,United-States,1
+29,Private,81648,HS-grad,9,Married-civ-spouse,Sales,Husband,White,Male,0,1887,55,United-States,1
+21,,242736,Assoc-acdm,12,Never-married,,Own-child,White,Female,0,0,40,United-States,0
