@@ -70,6 +70,7 @@ def compute_model_metrics(y, preds):
     recall = recall_score(y, preds, zero_division=1)
     return precision, recall, fbeta
 
+
 def create_prediction_attributes(encoder, df):   
     """
     Creates a dataframe with the attributes that will be used for prediction.

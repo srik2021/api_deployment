@@ -39,10 +39,8 @@ class InputFeatures(BaseModel):
     capital_loss: float
     hours_per_week: float
     native_country: str
-    
 
-# Define the endpoint for prediction using PUT method
-@app.put("/predict")
+
 def predict(input_data: InputFeatures):
     """
     Predicts the salary class of a given input data.
@@ -65,5 +63,32 @@ def predict(input_data: InputFeatures):
     
     # return predictions
     return {"prediction": preds[0]}
+
+# Define the endpoint for prediction using PUT method
+@app.put("/predict_salary")
+def predict_salary(input_data: InputFeatures):
+    """
+    Endpoint for making predictions.
+    """
+    return predict(input_data)
+
+# Define the endpoint for prediction using GET method
+@app.get("/get_salary_prediction")    
+def get_salary_prediction(age, workclass, fnlgt, education, education_num,
+                          marital_status, occupation, relationship,
+                          race, sex, capital_gain, capital_loss,
+                          hours_per_week, native_country):
+    """
+    Endpoint for making predictions.
+    """
+    input_data = InputFeatures(age=age, workclass=workclass, fnlgt=fnlgt, 
+                               education=education, education_num=education_num,
+                               marital_status=marital_status, occupation=occupation,
+                               relationship=relationship, race=race, sex=sex,
+                               capital_gain=capital_gain, capital_loss=capital_loss,
+                               hours_per_week=hours_per_week, native_country=native_country)
+    
+    return predict(input_data)
+ 
 
 

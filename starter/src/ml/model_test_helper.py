@@ -2,22 +2,27 @@ import json
 from numpy import random
 import pandas as pd
 
-def save_metrics_to_file(precision, recall, fbeta, accuracy):
+def save_metrics_to_file(precision, recall, fbeta, accuracy, file_loc, 
+                         file_open_mode, feature, feature_value):
     """
     Saves the model metrics to a file.
     """
-    
-    # create a dictionary of metrics
+        
     metrics = { 
         "precision": precision,
         "recall": recall,
         "fbeta": fbeta,
         "accuracy": accuracy
     }
-    
+
+    if feature is not None: 
+        metrics["feature"] = feature
+        metrics["feature_value"] = feature_value
+   
     # save metrics to file as json  
-    with open("starter/tests/metrics.json", "w") as f:
+    with open(file_loc, file_open_mode) as f:
         json.dump(metrics, f)
+        f.write("\n")
         
         
 def load_metrics_from_file():
