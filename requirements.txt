@@ -1,4 +1,7 @@
-python==3.8
+# Python version
+python_version = "3.8"
+
+# Required packages
 numpy
 pandas
 scikit-learn
