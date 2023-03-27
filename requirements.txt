@@ -1,7 +1,7 @@
 # Required packages
-numpy=1.20.0
+numpy==1.20.0
 pandas
-scikit-learn=0.23.0
+scikit-learn==0.23.0
 pytest
 requests
 fastapi==0.63.0
