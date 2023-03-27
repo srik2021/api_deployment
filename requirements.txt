@@ -1,10 +1,7 @@
-# Python version
-python_version = "3.8"
-
 # Required packages
-numpy
+numpy=1.20.0
 pandas
-scikit-learn
+scikit-learn=0.23.0
 pytest
 requests
 fastapi==0.63.0
