@@ -107,7 +107,7 @@ def transform_data(data):
     """
     Transforms the data into a format that can be used by the model.
     Args:
-        data (str): Path to the file containing the data.
+        data (DataFrame): DataFrame containing the training dataset
 
     Returns:
         X_train (np.array): Training data.
@@ -115,6 +115,10 @@ def transform_data(data):
         X_test (np.array): Test data.
         y_test (np.array): Test labels.
     """  
+    #Fill null values with mode
+    null_columns = data.columns[data.isnull().any()]
+    for col in null_columns:
+        data[col].fillna(data[col].mode()[0],inplace=True)
         
     # Optional enhancement, use K-fold cross validation instead of a train-test split.  
     train, test = train_test_split(data, test_size=0.20, random_state=31, stratify=data["salary"])
