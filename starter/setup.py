@@ -3,7 +3,7 @@ import setuptools
 setuptools.setup(
     name="salary_prediction",
     version="0.1.0",
-    packages=setuptools.find_packages(),
+    packages=setuptools.find_packages(include=['starter/src', 'starter/src/.*']),
     include_package_data=True,
     setup_requires=['pytest-runner'],
     tests_require=['pytest'],
