@@ -65,7 +65,7 @@ def predict(input_data: InputFeatures):
     return {"prediction": preds[0]}
 
 # Define the endpoint for prediction using PUT method
-@app.put("/predict_salary")
+@app.post("/predict_salary")
 def predict_salary(input_data: InputFeatures):
     """
     Endpoint for making predictions.
@@ -74,21 +74,18 @@ def predict_salary(input_data: InputFeatures):
 
 # Define the endpoint for prediction using GET method
 @app.get("/get_salary_prediction")    
-def get_salary_prediction(age, workclass, fnlgt, education, education_num,
-                          marital_status, occupation, relationship,
-                          race, sex, capital_gain, capital_loss,
-                          hours_per_week, native_country):
+def get_salary_prediction():
     """
-    Endpoint for making predictions.
+    Endpoint for providing information about api.
     """
-    input_data = InputFeatures(age=age, workclass=workclass, fnlgt=fnlgt, 
-                               education=education, education_num=education_num,
-                               marital_status=marital_status, occupation=occupation,
-                               relationship=relationship, race=race, sex=sex,
-                               capital_gain=capital_gain, capital_loss=capital_loss,
-                               hours_per_week=hours_per_week, native_country=native_country)
+    # Read contents of welcome.txt to welcome_txt
+    with open("starter/welcome.txt", 'r') as f:
+        welcome_txt = f.read()
     
-    return predict(input_data)
+    return welcome_txt
+
+    
+    
  
 
 

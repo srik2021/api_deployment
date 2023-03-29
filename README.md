@@ -1,43 +1,33 @@
-Working in a command line environment is recommended for ease of use with git and dvc. If on Windows, WSL1 or 2 is recommended.
+This project illustrates some of the best practices of MLOps - including developing modularized code, writing unit tests, testing performance of models over slices of data and implementing CI/CD
 
 # Environment Set up
-* Download and install conda if you don’t have it already.
-    * Use the supplied requirements file to create a new environment, or
-    * conda create -n [envname] "python=3.8" scikit-learn pandas numpy pytest jupyter jupyterlab fastapi uvicorn -c conda-forge
-    * Install git either through conda (“conda install git”) or through your CLI, e.g. sudo apt-get git.
+The requirements.txt file includes the libraries required to train models, execute unit tests and deploy the model as a fastAPI on heroku
 
-## Repositories
-* Create a directory for the project and initialize git.
-    * As you work on the code, continually commit changes. Trained models you want to use in production must be committed to GitHub.
-* Connect your local git repo to GitHub.
-* Setup GitHub Actions on your repo. You can use one of the pre-made GitHub Actions if at a minimum it runs pytest and flake8 on push and requires both to pass without error.
-    * Make sure you set up the GitHub Action to have the same version of Python as you used in development.
+# Repositories
+The repository is hosted at https://github.com/srik2021/api_deployment
 
-# Data
-* Download census.csv and commit it to dvc.
-* This data is messy, try to open it in pandas and see what you get.
-* To clean it, use your favorite text editor to remove all spaces.
+# Directory structure
+starter is the primary directory containing code, data, model, logs, screenshots and tests.  
 
-# Model
-* Using the starter code, write a machine learning model that trains on the clean data and saves the model. Complete any function that has been started.
-* Write unit tests for at least 3 functions in the model code.
-* Write a function that outputs the performance of the model on slices of the data.
-    * Suggestion: for simplicity, the function can just output the performance on slices of just the categorical features.
-* Write a model card using the provided template.
+## Source
+The source code is under the 'src' directory
+
+## Data
+The 'data' directory contains the raw census.csv used to train and validate the model.  It also stores sample input (raw and transformed) and corresponding predictions generated during validation and is used in tests to ensure that the same predications are generated
+
+## Model
+The 'model' folder contains the trained model as well as encoder.  It is used as part of unit tests to compare against the saved sample input and predictions.  They are also loaded by fastAPI for transformations and predictions on input
+
+## Tests
+The 'tests' directory contains pytest to both test the transformation and training code as well as test the fastAPI get and post methods
 
 # API Creation
-*  Create a RESTful API using FastAPI this must implement:
+*  Created a RESTful API using FastAPI that implements:
     * GET on the root giving a welcome message.
     * POST that does model inference.
-    * Type hinting must be used.
-    * Use a Pydantic model to ingest the body from POST. This model should contain an example.
-   	 * Hint: the data has names with hyphens and Python does not allow those as variable names. Do not modify the column names in the csv and instead use the functionality of FastAPI/Pydantic/etc to deal with this.
-* Write 3 unit tests to test the API (one for the GET and two for POST, one that tests each prediction).
+    * Uses type hinting and pydantic model to ingest the body from POST. T
 
 # API Deployment
-* Create a free Heroku account (for the next steps you can either use the web GUI or download the Heroku CLI).
-* Create a new app and have it deployed from your GitHub repository.
-    * Enable automatic deployments that only deploy if your continuous integration passes.
-    * Hint: think about how paths will differ in your local environment vs. on Heroku.
-    * Hint: development in Python is fast! But how fast you can iterate slows down if you rely on your CI/CD to fail before fixing an issue. I like to run flake8 locally before I commit changes.
-* Write a script that uses the requests module to do one POST on your live API.
+* The model API has been deployed on heroku and is enabled for Continuous Integration(CI)
+* A new build and deployment is automatically triggered by new commits to the main branch to the github code repository.
+
