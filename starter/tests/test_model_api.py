@@ -19,7 +19,7 @@ def test_model_api_post(client):
     Tests that the model API returns the correct predictions.
     """
     # load sample input and predictions from file
-    sample_df = pd.read_csv("starter/data/sample_raw_input_and_predictions.csv")
+    sample_df = pd.read_csv("starter/data/sample_raw_input_and_predictions_name.csv")
     
     # get sample input and predictions
     X_test = sample_df.drop("predictions", axis=1)

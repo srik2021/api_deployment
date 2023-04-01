@@ -22,6 +22,7 @@ model.load_model(model_path)
 
 # Define the FastAPI app
 app = FastAPI()
+    
 
 # Define the input data model for prediction
 class InputFeatures(BaseModel):
@@ -40,7 +41,10 @@ class InputFeatures(BaseModel):
     hours_per_week: float
     native_country: str
 
-
+    class Config:
+        alias_generator = lambda x: x.replace("-", "_")
+        allow_population_by_field_name = True
+        
 def predict(input_data: InputFeatures):
     """
     Predicts the salary class of a given input data.
@@ -70,6 +74,7 @@ def predict_salary(input_data: InputFeatures):
     """
     Endpoint for making predictions.
     """
+    print('Predicting salary for input data: ', input_data)
     return predict(input_data)
 
 # Define the endpoint for prediction using GET method

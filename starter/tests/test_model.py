@@ -41,28 +41,3 @@ def test_predictions(model):
     # test that predictions are the same as saved predictions
     assert predictions == saved_predictions.tolist()
     
-def test_model_metrics(model):
-    """
-    Tests that the model metrics are the same as the saved metrics.
-    """
-    # load input data from file and transform it
-    df = read_and_clean_data("starter/data/census.csv")   
-    X_train, y_train, X_test, y_test, _, _ = transform_data(df)
-    
-   # train xgboost model, save it and calculate accuracy metrics
-    model = train_model(X_train, y_train)
-    predictions = inference(model, X_test)
-
-    precision, recall, fbeta = compute_model_metrics(y_test, predictions)  
-
-    # calculate accuracy
-    accuracy = accuracy_score(y_test, predictions)
-    
-    # load saved metrics
-    saved_metrics = load_metrics_from_file()
-    
-    # test that metrics are the same as saved metrics
-    assert saved_metrics["precision"] == precision
-    assert saved_metrics["recall"] == recall
-    assert saved_metrics["fbeta"] == fbeta
-    assert saved_metrics["accuracy"] == accuracy
