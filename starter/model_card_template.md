@@ -21,7 +21,7 @@ fbeta: 0.7034860947904427
 accuracy: 0.8632586705202312
 
 ## Ethical Considerations
-
+There is a quite a bit of variation in performance between the different slices of data.  At the same time, there isn't enough data for several slices to confirm bias. Consider upsampling less representative samples to get more confidence on whether bias exists.  Also consider reducing slices (e.g. combining several education categories to maybe reduce them from 15 to 5)
 
 ## Caveats and Recommendations
 The focus of the code has been on implementing CI/CD best practices rather than producing the best performing model.   Recommend exploring k-fold cross validation to assess if it improves the performance of the model
