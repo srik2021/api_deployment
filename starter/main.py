@@ -45,6 +45,25 @@ class InputFeatures(BaseModel):
         alias_generator = lambda x: x.replace("-", "_")
         allow_population_by_field_name = True
         
+        schema_extra = {
+            "example": {
+                "age": 26,
+                "workclass": "Private",
+                "fnlgt": 132661,
+                "education": "HS-grad",
+                "education_num": 9,
+                "marital_status": "Married-civ-spouse",
+                "occupation": "Exec-managerial",
+                "relationship": "Wife",
+                "race": "White",
+                "sex": "Female",
+                "capital_gain": 5013,
+                "capital_loss": 0,
+                "hours_per_week": 40,
+                "native_country": "United-States"
+            }
+        }
+        
 def predict(input_data: InputFeatures):
     """
     Predicts the salary class of a given input data.
