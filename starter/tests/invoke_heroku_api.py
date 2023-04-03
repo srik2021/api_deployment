@@ -18,10 +18,13 @@ input_val = {
         "native_country": "United-States"
     }
 
-#create test to invoke api using requests
-def test_salary_predict_api():
+# Invoke model api on heroku and print results
+def validate_heroku_api():
     response = requests.post("https://salary-predictor.herokuapp.com/predict_salary", 
                              json=input_val)
-    assert(response.status_code == 200)
-    assert(response.json().get('prediction') == 1)
+    print(response.status_code)
+    print(response.json().get('prediction'))
+    
+if __name__ == "__main__":
+    validate_heroku_api()
  

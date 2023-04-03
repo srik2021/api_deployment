@@ -11,7 +11,7 @@ import xgboost as xgb
 
 from main import app
 from ml.model import inference, train_model, compute_model_metrics, cat_features
-from ml.model import transform_data, transform_prediction_attributes
+from ml.model import transform_data, transform_prediction_attributes, compute_model_metrics
 from ml.model_test_helper import load_metrics_from_file
 from ml.data import read_and_clean_data
 
@@ -27,6 +27,8 @@ def encoder():
     # load encoder from file
     encoder = joblib.load("starter/model/encoder.joblib")
     return encoder
+
+
 # create fixture to load model
 @pytest.fixture
 def model():
@@ -124,5 +126,20 @@ def test_model_api_get(client):
     # Using in instead of == because of extra quotes in response
     assert welcome_txt in response_text
 
+
+def test_model_metrics_computation():
+    # Create sample predictions and labels to test compute_model_metrics function
+    sample_predictions = [0, 1, 0, 1, 0, 1, 1, 1, 0, 1]
+    sample_labels = [0, 0, 0, 1, 1, 1, 0, 1, 0, 0]
+    expected_precision = 0.75
+    expected_recall = 0.5
+    expected_fbeta = 0.6
+
+    # Compute model metrics
+    precision, recall, fbeta = compute_model_metrics(sample_predictions, sample_labels)  
+    
+    assert expected_precision == precision
+    assert expected_recall == recall
+    assert expected_fbeta == fbeta
 
 

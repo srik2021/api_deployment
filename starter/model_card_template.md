@@ -11,7 +11,7 @@ The model should only be used as baseline model to understand basic transformati
 The traning data is from the publicly available dataset: https://www.kaggle.com/datasets/laleeth/salary-predict-dataset
 
 ## Evaluation Data
-The evaluation data is a subset of the training data - the data was split into training and validation data.  Additional test data was not used to evaluate expected performance
+The evaluation data is a subset of the training data - the data was split into training and validation data.  20% of the data was set aside for evaluation
 
 ## Metrics
 Since this is a classification model,  the standard classification metrics of precision, rcall, fbeta and accuracy were used.  Metric results below:
